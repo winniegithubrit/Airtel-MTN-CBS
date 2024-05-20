@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/css/styles.css",
+      "PackagePath": "staticwebassets/css/styles.css"
+    },
+    {
+      "Id": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/images/istockphoto-1061097354-2048x2048.jpg",
+      "PackagePath": "staticwebassets/images/istockphoto-1061097354-2048x2048.jpg"
+    },
+    {
+      "Id": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/js/script.js",
+      "PackagePath": "staticwebassets/js/script.js"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Co_Banking_System.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.Co_Banking_System.props",
+      "PackagePath": "build\\Co_Banking_System.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Co_Banking_System.props",
+      "PackagePath": "buildMultiTargeting\\Co_Banking_System.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Co_Banking_System.props",
+      "PackagePath": "buildTransitive\\Co_Banking_System.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

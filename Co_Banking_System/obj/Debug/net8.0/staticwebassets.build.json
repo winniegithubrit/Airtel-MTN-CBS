@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "PzoCILR40iQDRn0VNf6k43+n6m3woQmgnqr6ndYl+SM=",
+  "Source": "Co_Banking_System",
+  "BasePath": "_content/Co_Banking_System",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Co_Banking_System/wwwroot",
+      "Source": "Co_Banking_System",
+      "ContentRoot": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/",
+      "BasePath": "_content/Co_Banking_System",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/css/styles.css",
+      "SourceId": "Co_Banking_System",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/",
+      "BasePath": "_content/Co_Banking_System",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/styles.css"
+    },
+    {
+      "Identity": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/images/istockphoto-1061097354-2048x2048.jpg",
+      "SourceId": "Co_Banking_System",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/",
+      "BasePath": "_content/Co_Banking_System",
+      "RelativePath": "images/istockphoto-1061097354-2048x2048.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/istockphoto-1061097354-2048x2048.jpg"
+    },
+    {
+      "Identity": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/js/script.js",
+      "SourceId": "Co_Banking_System",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/wwwroot/",
+      "BasePath": "_content/Co_Banking_System",
+      "RelativePath": "js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/script.js"
+    }
+  ]
+}

@@ -58,3 +58,25 @@ Each status can be associated with multiple transactions, defined by the ICollec
 Each additional info is related to one transaction, defined by the Transaction Transaction property.(ONE TO ONE)
 
 # RUNNING MIGRATIONS 
+# Install Entity Framework Core Tools:
+dotnet tool install --global dotnet-ef
+# Verify Installation:
+dotnet ef --version
+
+
+Ensure Application Builds Successfully:
+dotnet run
+
+# Create Migrations:
+dotnet ef migrations add InitialCreate
+
+# Apply Migrations to Database:
+dotnet ef database update
+# oy have to identify the primary key attribute using
+[key]
+ # Install dotnet-ef as a Local Tool(this is done before the migrations commands incase of any errors)
+dotnet new tool-manifest 
+dotnet tool install dotnet-ef --local
+dotnet tool run dotnet-ef --version
+dotnet ef --version
+# after this run the migrations command

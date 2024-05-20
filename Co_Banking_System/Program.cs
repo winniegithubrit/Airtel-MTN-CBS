@@ -1,5 +1,6 @@
 using Co_Banking_System.Models;
 using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
