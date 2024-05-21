@@ -80,3 +80,15 @@ dotnet tool install dotnet-ef --local
 dotnet tool run dotnet-ef --version
 dotnet ef --version
 # after this run the migrations command
+# seeding
+adding data to the database that we will use to test
+# Add a New Migration: Create a new migration to incorporate the seeding changes.
+dotnet ef migrations add SeedData
+# Apply the Migration: Apply the new migration to update the database with the seeded data.
+dotnet ef database update
+# Run Your Application:
+dotnet run
+# AIRTEL AND MTN INTERGRATION:
+# authentication(obtaining the secret key and client id)
+
+

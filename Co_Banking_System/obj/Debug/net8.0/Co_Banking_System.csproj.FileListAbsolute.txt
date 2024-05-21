@@ -146,3 +146,4 @@
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.genruntimeconfig.cache
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/ref/Co_Banking_System.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System.staticwebassets.runtime.json
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Newtonsoft.Json.dll
