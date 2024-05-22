@@ -23,10 +23,11 @@ namespace Co_Banking_System.Models
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation properties
+    // Each transaction belongs to one user
     public User? User { get; set; }
-
+    // Each transaction has one status
     public TransactionStatus? Status { get; set; }
-
+    // Each transaction can have multiple additional infos
     public ICollection<AdditionalInfo>? AdditionalInfos { get; set; }
   }
 }

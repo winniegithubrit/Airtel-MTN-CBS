@@ -3,13 +3,14 @@ using Co_Banking_System.Options;
 using Co_Banking_System.Services;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<AirtelApiOptions>(builder.Configuration.GetSection("AirtelApi"));
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<AirtelApiClient>();
 
 // Configure the DbContext with MySQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

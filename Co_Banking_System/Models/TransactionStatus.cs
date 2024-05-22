@@ -13,7 +13,7 @@ namespace Co_Banking_System.Models
 
     public string? Description { get; set; }
 
-    // Navigation property
+    // Navigation property where Each status can be associated with multiple transactions
     public ICollection<Transaction>? Transactions { get; set; }
   }
 }

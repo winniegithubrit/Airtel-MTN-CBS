@@ -30,7 +30,7 @@ namespace Co_Banking_System.Models
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Navigation property for relationships
+    // Navigation property for relationships whereby One user can have multiple transactions
     public ICollection<Transaction>? Transactions { get; set; }
   }
 }

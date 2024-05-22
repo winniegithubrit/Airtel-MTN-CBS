@@ -15,7 +15,7 @@ namespace Co_Banking_System.Models
     [Required]
     public string? InfoValue { get; set; }
 
-    // Navigation property
+    // Navigation property Each additional info is related to one transaction
     public Transaction? Transaction { get; set; }
   }
 }
