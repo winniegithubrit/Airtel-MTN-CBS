@@ -90,5 +90,5 @@ dotnet ef database update
 dotnet run
 # AIRTEL AND MTN INTERGRATION:
 # authentication(obtaining the secret key and client id)
-
+testing the code using postman
 
