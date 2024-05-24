@@ -1,47 +1,55 @@
-using Co_Banking_System.Models;
-using Co_Banking_System.Options;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Security.Cryptography.X509Certificates;
 using Co_Banking_System.Services;
-using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
-using Microsoft.Extensions.Options;
+using Co_Banking_System.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.Configure<AirtelApiOptions>(builder.Configuration.GetSection("AirtelApi"));
-builder.Services.AddHttpClient<AirtelApiClient>();
+var configuration = builder.Configuration;
+builder.Services.Configure<AirtelApiOptions>(configuration.GetSection("AirtelApi"));
+builder.Services.AddSingleton<AirtelApiClient>();
+builder.Services.AddHttpClient();
+builder.Services.AddControllers();
 
-// Configure the DbContext with MySQL
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 23))));
+// Configure Kestrel to use HTTPS and the PFX certificate
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenLocalhost(5058, listenOptions =>
+    {
+        listenOptions.UseHttps(httpsOptions =>
+        {
+            var certificatePath = configuration["AirtelApi:CertificatePath"];
+            var certificatePassword = configuration["AirtelApi:CertificatePassword"];
 
-// Build the app.
+            if (!string.IsNullOrEmpty(certificatePath) && !string.IsNullOrEmpty(certificatePassword))
+            {
+                httpsOptions.ServerCertificate = new X509Certificate2(certificatePath, certificatePassword);
+                httpsOptions.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13;
+            }
+            else
+            {
+                Console.WriteLine("Certificate path or password is null or empty.");
+            }
+        });
+    });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
-// Uncomment this line to use HTTPS redirection if needed
-// app.UseHttpsRedirection();
-
-app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();

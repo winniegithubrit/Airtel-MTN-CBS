@@ -3,73 +3,110 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Options;
-using Co_Banking_System.Options;
-
 
 namespace Co_Banking_System.Services
 {
     public class AirtelApiClient
     {
         private readonly HttpClient _httpClient;
-        private readonly AirtelApiOptions _options;
+        private readonly ILogger<AirtelApiClient> _logger;
+        private readonly IConfiguration _configuration;
         private string? _accessToken;
 
-        public AirtelApiClient(HttpClient httpClient, IOptions<AirtelApiOptions> options)
+        public AirtelApiClient(IHttpClientFactory httpClientFactory, ILogger<AirtelApiClient> logger, IConfiguration configuration)
         {
-            _httpClient = httpClient;
-            _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+            _httpClient = httpClientFactory.CreateClient();
+            _logger = logger;
+            _configuration = configuration;
         }
 
-        public async Task<string> GetAccessTokenAsync()
+        public async Task<string> GetAccessToken()
         {
-            var tokenUrl = new Uri(new Uri(_options.BaseUrl), "auth/oauth2/token");
-            var content = new StringContent(
-                $"grant_type=client_credentials&client_id={Uri.EscapeDataString(_options.ClientId)}&client_secret={Uri.EscapeDataString(_options.ClientSecret)}",
-                Encoding.UTF8,
-                "application/x-www-form-urlencoded");
-
-            HttpResponseMessage response = await _httpClient.PostAsync(tokenUrl, content);
-            if (!response.IsSuccessStatusCode)
+            var tokenRequestBody = new
             {
-                throw new HttpRequestException($"Failed to get access token. Status code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
+                client_id = _configuration["AirtelApi:ClientId"],
+                client_secret = _configuration["AirtelApi:ClientSecret"],
+                grant_type = "client_credentials"
+            };
+
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(tokenRequestBody), Encoding.UTF8, "application/json");
+
+            var tokenUrl = _configuration["AirtelApi:TokenUrl"];
+            if (string.IsNullOrEmpty(tokenUrl))
+            {
+                throw new InvalidOperationException("Token URL is not configured.");
             }
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            dynamic? responseObject = JsonConvert.DeserializeObject(responseString);
-
-            if (responseObject == null || responseObject.access_token == null)
+            try
             {
-                throw new InvalidOperationException("Failed to obtain access token from Airtel API.");
+                var response = await _httpClient.PostAsync(tokenUrl, jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
+                    if (tokenResponse?.access_token == null)
+                    {
+                        throw new InvalidOperationException("Token response is invalid.");
+                    }
+                    _accessToken = tokenResponse.access_token;
+                    _logger.LogInformation($"Access Token: {_accessToken}");
+                    return _accessToken;
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    _logger.LogError($"Token request failed with status code: {response.StatusCode}, content: {errorContent}");
+                    throw new HttpRequestException($"Token request failed with status code: {response.StatusCode}");
+                }
             }
-
-            _accessToken = responseObject.access_token;
-            return _accessToken;
-        }
-
-        private async Task EnsureAccessTokenAsync()
-        {
-            if (string.IsNullOrEmpty(_accessToken))
+            catch (HttpRequestException ex)
             {
-                _accessToken = await GetAccessTokenAsync();
+                _logger.LogError($"HttpRequestException: {ex.Message}");
+                throw;
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError($"JsonException: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception: {ex.Message}");
+                throw;
             }
         }
 
         public async Task<string> MakeCashInRequest(string endpoint, object requestBody)
         {
-            await EnsureAccessTokenAsync();
+            if (_accessToken == null)
+            {
+                // Obtain access token if not already available
+                _accessToken = await GetAccessToken();
+            }
 
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-            _httpClient.DefaultRequestHeaders.Add("X-Country", "UG");
-            _httpClient.DefaultRequestHeaders.Add("X-Currency", "UGX");
+            if (_accessToken != null)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            }
+            else
+            {
+                throw new InvalidOperationException("Access token is null.");
+            }
+
+            var baseUrl = _configuration["AirtelApi:BaseUrl"];
+            if (string.IsNullOrEmpty(baseUrl))
+            {
+                throw new InvalidOperationException("Base URL is not configured.");
+            }
 
             var jsonContent = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-            var url = new Uri(new Uri(_options.BaseUrl), endpoint);
+            var url = new Uri(new Uri(baseUrl), endpoint);
 
-            HttpResponseMessage response = await _httpClient.PostAsync(url, jsonContent);
+            var response = await _httpClient.PostAsync(url, jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -77,8 +114,15 @@ namespace Co_Banking_System.Services
             }
             else
             {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                _logger.LogError($"Airtel API request failed with status code: {response.StatusCode}, content: {errorContent}");
                 throw new HttpRequestException($"Airtel API request failed with status code: {response.StatusCode}");
             }
+        }
+
+        private class TokenResponse
+        {
+            public string? access_token { get; set; }
         }
     }
 }
