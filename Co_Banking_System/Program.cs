@@ -11,8 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var configuration = builder.Configuration;
+
+// Configure Airtel API settings
 builder.Services.Configure<AirtelApiOptions>(configuration.GetSection("AirtelApi"));
 builder.Services.AddSingleton<AirtelApiClient>();
+
+// Configure MTN MoMo API settings
+builder.Services.Configure<MoMoApiOptions>(configuration.GetSection("MtnMomoSettings"));
+builder.Services.AddHttpClient<MtnMomoService>();
+
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
