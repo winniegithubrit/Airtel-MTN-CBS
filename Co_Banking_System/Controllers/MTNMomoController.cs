@@ -2,16 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Co_Banking_System.Services;
+using Co_Banking_System.Models; 
+
 
 namespace Co_Banking_System.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
-  public class MtnMomoController : ControllerBase
+  [Route("api/[controller]")]
+  public class MTNMomoController : ControllerBase
   {
     private readonly MtnMomoService _mtnMomoService;
 
-    public MtnMomoController(MtnMomoService mtnMomoService)
+    public MTNMomoController(MtnMomoService mtnMomoService)
     {
       _mtnMomoService = mtnMomoService ?? throw new ArgumentNullException(nameof(mtnMomoService));
     }
@@ -31,16 +33,19 @@ namespace Co_Banking_System.Controllers
     }
 
     [HttpPost("request-to-pay")]
-    public async Task<IActionResult> RequestToPay(string externalId, string payerId, decimal amount, string currency, string payerMessage, string payeeNote)
+    public async Task<IActionResult> RequestToPay([FromBody] RequestToPayModel model)
     {
-      if (string.IsNullOrEmpty(externalId) || string.IsNullOrEmpty(payerId) || amount <= 0 || string.IsNullOrEmpty(currency) || string.IsNullOrEmpty(payerMessage) || string.IsNullOrEmpty(payeeNote))
+      if (model == null || string.IsNullOrEmpty(model.ExternalId) || string.IsNullOrEmpty(model.PayerId) || string.IsNullOrEmpty(model.Currency) || string.IsNullOrEmpty(model.PayerMessage) || string.IsNullOrEmpty(model.PayeeNote))
       {
         return BadRequest("Invalid request parameters.");
       }
 
+      // Convert nullable decimal to non-nullable decimal
+      decimal amount = model.Amount ?? 0;
+
       try
       {
-        var result = await _mtnMomoService.RequestToPayAsync(externalId, payerId, amount, currency, payerMessage, payeeNote);
+        var result = await _mtnMomoService.RequestToPayAsync(model.ExternalId, model.PayerId, amount, model.Currency, model.PayerMessage, model.PayeeNote);
         return Ok(result);
       }
       catch (Exception ex)

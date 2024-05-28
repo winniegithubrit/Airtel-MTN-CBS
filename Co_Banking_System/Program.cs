@@ -26,7 +26,6 @@ builder.Services.AddSingleton<AirtelApiClient>();
 builder.Services.Configure<MoMoApiOptions>(configuration.GetSection("MtnMomoSettings"));
 builder.Services.AddHttpClient<MtnMomoService>();
 
-builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
 // Configure Kestrel to use HTTPS and the PFX certificate
@@ -66,4 +65,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
