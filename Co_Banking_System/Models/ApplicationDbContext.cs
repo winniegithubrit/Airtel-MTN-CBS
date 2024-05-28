@@ -3,12 +3,14 @@ using System;
 
 namespace Co_Banking_System.Models
 {
+    // dbContext class for the application
     public class ApplicationDbContext : DbContext
     {
+        // constructor to accept the DbContextOptions used to configure the DbContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
+// model entities
         public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionStatus> TransactionStatuses { get; set; }
@@ -16,28 +18,29 @@ namespace Co_Banking_System.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // relationships between transaction and user models
             modelBuilder.Entity<Transaction>()
                 .HasOne(t => t.User)
                 .WithMany(u => u.Transactions)
                 .HasForeignKey(t => t.UserId);
-
+// between transaction and transaction status
             modelBuilder.Entity<Transaction>()
                 .HasOne(t => t.Status)
                 .WithMany(s => s.Transactions)
                 .HasForeignKey(t => t.StatusId);
-
+// between additional info and transaction models
             modelBuilder.Entity<AdditionalInfo>()
                 .HasOne(ai => ai.Transaction)
                 .WithMany(t => t.AdditionalInfos)
                 .HasForeignKey(ai => ai.TransactionId);
 
-            // Seed data
+            // Seeding data for transaction status
             modelBuilder.Entity<TransactionStatus>().HasData(
                 new TransactionStatus { StatusId = 1, StatusCode = "Pending", Description = "Transaction is pending" },
                 new TransactionStatus { StatusId = 2, StatusCode = "Completed", Description = "Transaction is completed" },
                 new TransactionStatus { StatusId = 3, StatusCode = "Failed", Description = "Transaction has failed" }
             );
-
+// data for user model
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -78,6 +81,7 @@ namespace Co_Banking_System.Models
                     CreatedAt = DateTime.UtcNow
                 }
             );
+            // for transaction model
                 modelBuilder.Entity<Transaction>().HasData(
                 new Transaction
                 {
@@ -116,7 +120,7 @@ namespace Co_Banking_System.Models
                     CreatedAt = DateTime.UtcNow
                 }
             );
-
+// additional info model
             modelBuilder.Entity<AdditionalInfo>().HasData(
                 new AdditionalInfo
                 {

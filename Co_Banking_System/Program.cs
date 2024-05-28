@@ -6,11 +6,17 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using Co_Banking_System.Services;
 using Co_Banking_System.Options;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var configuration = builder.Configuration;
+
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Configure Airtel API settings
 builder.Services.Configure<AirtelApiOptions>(configuration.GetSection("AirtelApi"));
@@ -26,7 +32,7 @@ builder.Services.AddControllers();
 // Configure Kestrel to use HTTPS and the PFX certificate
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenLocalhost(5058, listenOptions =>
+    serverOptions.ListenLocalhost(5000, listenOptions =>
     {
         listenOptions.UseHttps(httpsOptions =>
         {
@@ -60,3 +66,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
