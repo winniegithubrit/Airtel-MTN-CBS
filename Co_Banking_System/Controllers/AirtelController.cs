@@ -1,38 +1,47 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Co_Banking_System.Services;
 
 namespace Co_Banking_System.Controllers
 {
-    // specifying that this class is an API contoller and it will handle HTTP requests
     [ApiController]
-    // defining the base root for all actions in this controller
     [Route("api/[controller]")]
     public class AirtelController : ControllerBase
     {
-// it holds the injected AirtelApiClient Service hence private
         private readonly AirtelApiClient _airtelApiClient;
-// constructor that will accept an AirtelApiClient instance through dependency injection
-        public AirtelController(AirtelApiClient airtelApiClient)
+        private readonly ILogger<AirtelController> _logger;
+
+        public AirtelController(AirtelApiClient airtelApiClient, ILogger<AirtelController> logger)
         {
-            // assigning the injected AirtelApiClient to a private field
             _airtelApiClient = airtelApiClient;
+            _logger = logger;
         }
-// handling the POST request to the api/airtel/cashin route
+
         [HttpPost("cashin")]
         public async Task<IActionResult> CashIn([FromBody] object cashInRequest)
         {
+            if (cashInRequest == null)
+            {
+                _logger.LogError("CashIn request body is null.");
+                return BadRequest(new { message = "Request body cannot be null" });
+            }
+
             try
             {
-                // cashin endpoint
                 var endpoint = "standard/v2/cashin/";
-                /// Uses the AirtelApiClient to make the cash-in request, passing the endpoint and request data
                 var response = await _airtelApiClient.MakeCashInRequest(endpoint, cashInRequest);
                 return Ok(response);
             }
             catch (HttpRequestException ex)
             {
+                _logger.LogError(ex, "HTTP request to Airtel API failed.");
                 return StatusCode(500, new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(500, new { message = "An unexpected error occurred" });
             }
         }
     }

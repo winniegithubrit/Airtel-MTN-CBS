@@ -1,12 +1,6 @@
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.csproj.AssemblyReference.cache
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.GeneratedMSBuildEditorConfig.editorconfig
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.AssemblyInfoInputs.cache
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.AssemblyInfo.cs
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.csproj.CoreCompileInputs.cache
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.MvcApplicationPartsAssemblyInfo.cache
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.sourcelink.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/appsettings.Development.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/appsettings.json
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System.staticwebassets.runtime.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System.deps.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System.runtimeconfig.json
@@ -46,6 +40,7 @@
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/MySql.Data.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/MySql.EntityFrameworkCore.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/MySqlConnector.dll
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Newtonsoft.Json.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/System.CodeDom.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/System.Composition.AttributedModel.dll
@@ -131,6 +126,13 @@
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.csproj.AssemblyReference.cache
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.GeneratedMSBuildEditorConfig.editorconfig
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.AssemblyInfoInputs.cache
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.AssemblyInfo.cs
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.csproj.CoreCompileInputs.cache
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.MvcApplicationPartsAssemblyInfo.cache
+/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.sourcelink.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/staticwebassets.build.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/staticwebassets.development.json
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/staticwebassets/msbuild.Co_Banking_System.Microsoft.AspNetCore.StaticWebAssets.props
@@ -145,5 +147,3 @@
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.pdb
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/Co_Banking_System.genruntimeconfig.cache
 /home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/obj/Debug/net8.0/ref/Co_Banking_System.dll
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Co_Banking_System.staticwebassets.runtime.json
-/home/nathalie/winnie/Development/Airtel-MTN-CBS/Co_Banking_System/bin/Debug/net8.0/Newtonsoft.Json.dll
