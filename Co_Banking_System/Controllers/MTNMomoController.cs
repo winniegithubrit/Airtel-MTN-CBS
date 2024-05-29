@@ -60,5 +60,27 @@ namespace Co_Banking_System.Controllers
         return StatusCode(500, $"An error occurred while creating the payment: {ex.Message}");
       }
     }
+
+    [HttpGet("account-balance")]
+    public async Task<IActionResult> GetAccountBalance()
+    {
+      try
+      {
+        // Replace 'accessToken' and 'targetEnvironment' with actual values
+        string accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSMjU2In0.eyJjbGllbnRJZCI6IjRhYmQ5Y2YzLTk4YTUtNDhmMy1iMmZhLWJkNmIzMjZjYjYzNSIsImV4cGlyZXMiOiIyMDI0LTA1LTI5VDIwOjM2OjUzLjgyNyIsInNlc3Npb25JZCI6IjcxZjcyMGE2LWQwMTEtNDM4Yi1hNTdlLTIzOTlkMzg0Mzk3MCJ9.L5HEN6aW8wY9gfd80_AVclmyate2KAaZAOah-Icchfmbsk5ii4D__JSFRHwBRvoZVTjnKXxfwnyKwyFG3vq-ShtvOyuE9qrw4W7Tzlfm3WZ-uxVHDEEu7nB0ucTljUSn_XfOem_g70ZMQWkLuyAzKSUpif209dDDSyHuEgYtZykbrmuEjA3NhqosX5obWmzdC1kz-d1dUJLkwHFSsp2neV4I-RS5hFIXMBEpaU5-ePjwE8SH7xZqdWMWHVrSQS9s1afjK-bggBhzvp_PmAOZOuQIO4pSp9nkxJUnYP04bwOuUIhdFXp9NIYtxUT1jWDxIajqe4OLmGUqMNuptVJ2-A";
+        string targetEnvironment = "sandbox";
+
+        // Call the service to get the account balance
+        var result = await _mtnMomoService.GetAccountBalanceAsync(accessToken, targetEnvironment);
+
+        // Return the account balance as JSON
+        return Ok(result);
+      }
+      catch (Exception ex)
+      {
+        // Handle any errors and return an error response
+        return StatusCode(500, $"An error occurred while fetching account balance: {ex.Message}");
+      }
+    }
   }
 }

@@ -27,7 +27,7 @@ namespace Co_Banking_System.Services
       _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-  
+  // the request payment functionality
     public async Task<string> RequestToPayAsync(string externalId, string payerId, decimal amount, string currency, string payerMessage, string payeeNote)
     {
       var requestUri = $"{_settings.BaseUrl}/collection/v1_0/requesttopay".Trim();
@@ -120,6 +120,23 @@ namespace Co_Banking_System.Services
     }
 
 
+    public async Task<string> GetAccountBalanceAsync(string accessToken, string targetEnvironment)
+    {
+      // Set the authorization header
+      _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+      // Set the X-Target-Environment header
+      _httpClient.DefaultRequestHeaders.Add("X-Target-Environment", targetEnvironment);
+
+      // Make the GET request
+      var response = await _httpClient.GetAsync("https://sandbox.momodeveloper.mtn.com/collection/v1_0/account/balance");
+
+      // Read the response content
+      var responseBody = await response.Content.ReadAsStringAsync();
+
+      // Return the response body
+      return responseBody;
+    }
   }
 }
 
