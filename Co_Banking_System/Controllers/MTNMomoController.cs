@@ -82,5 +82,6 @@ namespace Co_Banking_System.Controllers
         return StatusCode(500, $"An error occurred while fetching account balance: {ex.Message}");
       }
     }
+    
   }
 }
