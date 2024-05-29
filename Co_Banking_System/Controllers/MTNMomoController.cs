@@ -17,19 +17,7 @@ namespace Co_Banking_System.Controllers
             _mtnMomoService = mtnMomoService ?? throw new ArgumentNullException(nameof(mtnMomoService));
         }
 
-        [HttpPost("create-api-user")]
-        public async Task<IActionResult> CreateApiUser()
-        {
-            try
-            {
-                var result = await _mtnMomoService.CreateApiUserAsync();
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while creating the API user: {ex.Message}");
-            }
-        }
+
 
         [HttpPost("request-to-pay")]
         public async Task<IActionResult> RequestToPay([FromBody] RequestToPayModel model)
@@ -53,23 +41,24 @@ namespace Co_Banking_System.Controllers
             }
         }
 
-        [HttpGet("request-to-pay-status/{requestId}")]
-        public async Task<IActionResult> GetRequestToPayStatus(string requestId)
-        {
-            if (string.IsNullOrEmpty(requestId))
-            {
-                return BadRequest("Request ID is required.");
-            }
 
-            try
-            {
-                var result = await _mtnMomoService.GetRequestToPayStatusAsync(requestId);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while fetching payment status: {ex.Message}");
-            }
-        }
+    [HttpPost("create-payment")]
+    public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentModel model)
+    {
+      if (model == null || string.IsNullOrEmpty(model.Amount.ToString()) || string.IsNullOrEmpty(model.Currency) || string.IsNullOrEmpty(model.CustomerReference) || string.IsNullOrEmpty(model.ServiceProviderUserName))
+      {
+        return BadRequest("Invalid request parameters.");
+      }
+
+      try
+      {
+        var result = await _mtnMomoService.CreatePaymentAsync(model);
+        return Ok(result);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, $"An error occurred while creating the payment: {ex.Message}");
+      }
     }
+  }
 }
