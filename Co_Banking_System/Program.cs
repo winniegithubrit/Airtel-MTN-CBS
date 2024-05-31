@@ -25,6 +25,11 @@ builder.Services.AddSingleton<AirtelApiClient>();
 // Configure MTN MoMo API settings
 builder.Services.Configure<MoMoApiOptions>(configuration.GetSection("MtnMomoSettings"));
 builder.Services.AddHttpClient<MtnMomoService>();
+builder.Services.AddHttpClient<MtnDisbursementService>(client =>
+{
+    client.BaseAddress = new Uri("https://sandbox.momodeveloper.mtn.com");
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", configuration["DisbursementSettings:ApiKey"]);
+});
 
 builder.Services.AddControllers();
 

@@ -20,4 +20,11 @@ namespace Co_Banking_System.Models
   {
     public string? ReferenceId { get; set; }
   }
+
+  public class MtnMomoSettings
+  {
+    public string? ApiKey { get; set; }
+    public string? AccessToken { get; set; }
+    public string? BaseUrl { get; set; }
+  }
 }
