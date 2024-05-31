@@ -7,11 +7,14 @@ using System.Security.Cryptography.X509Certificates;
 using Co_Banking_System.Services;
 using Co_Banking_System.Options;
 using Microsoft.Extensions.Logging;
+using Co_Banking_System.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var configuration = builder.Configuration;
+var disbursementSettings = new DisbursementSettings(); 
+
 
 // Configure logging
 builder.Logging.ClearProviders();
@@ -24,6 +27,7 @@ builder.Services.AddSingleton<AirtelApiClient>();
 
 // Configure MTN MoMo API settings
 builder.Services.Configure<MoMoApiOptions>(configuration.GetSection("MtnMomoSettings"));
+builder.Services.Configure<DisbursementSettings>(configuration.GetSection("DisbursementSettings"));
 builder.Services.AddHttpClient<MtnMomoService>();
 builder.Services.AddHttpClient<MtnDisbursementService>(client =>
 {

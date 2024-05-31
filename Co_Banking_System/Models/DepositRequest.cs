@@ -18,13 +18,9 @@ namespace Co_Banking_System.Models
 
   public class DepositResponse
   {
+    // Define properties based on the expected response from the API
     public string? ReferenceId { get; set; }
-  }
-
-  public class MtnMomoSettings
-  {
-    public string? ApiKey { get; set; }
-    public string? AccessToken { get; set; }
-    public string? BaseUrl { get; set; }
+    public string? Status { get; set; }
+    public string? Reason { get; set; }
   }
 }
