@@ -74,18 +74,24 @@ namespace Co_Banking_System.Services
 
 
     // creating a payment route 
+
     public async Task<string> CreatePaymentAsync(CreatePaymentModel model)
     {
       var requestUri = $"{_settings.BaseUrl}/collection/v2_0/payment".Trim();
       var requestId = Guid.NewGuid().ToString();
+
+      // Ensure amount is properly formatted and nullable values are handled
+      decimal amount = model.Money?.Amount ?? 0;
+      string amountString = amount.ToString("F2"); // Ensure proper decimal format
+      string currency = model.Money?.Currency ?? string.Empty;
 
       var jsonContent = JsonSerializer.Serialize(new
       {
         externalTransactionId = model.ExternalTransactionId,
         money = new
         {
-          amount = model.Amount.ToString("F2"), // Ensure proper decimal format
-          currency = model.Currency
+          amount = amountString,
+          currency
         },
         customerReference = model.CustomerReference,
         serviceProviderUserName = model.ServiceProviderUserName,

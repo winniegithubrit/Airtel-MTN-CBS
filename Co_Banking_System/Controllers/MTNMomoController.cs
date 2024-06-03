@@ -42,11 +42,16 @@ namespace Co_Banking_System.Controllers
     }
 
 
-
     [HttpPost("create-payment")]
     public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentModel model)
     {
-      if (model == null || string.IsNullOrEmpty(model.Amount.ToString()) || string.IsNullOrEmpty(model.Currency) || string.IsNullOrEmpty(model.CustomerReference) || string.IsNullOrEmpty(model.ServiceProviderUserName))
+      if (model == null ||
+          string.IsNullOrEmpty(model.ExternalTransactionId) ||
+          model.Money == null ||
+          model.Money.Amount <= 0 ||
+          string.IsNullOrEmpty(model.Money.Currency) ||
+          string.IsNullOrEmpty(model.CustomerReference) ||
+          string.IsNullOrEmpty(model.ServiceProviderUserName))
       {
         return BadRequest("Invalid request parameters.");
       }
@@ -61,6 +66,8 @@ namespace Co_Banking_System.Controllers
         return StatusCode(500, $"An error occurred while creating the payment: {ex.Message}");
       }
     }
+
+
 
     [HttpGet("account-balance")]
     public async Task<IActionResult> GetAccountBalance()

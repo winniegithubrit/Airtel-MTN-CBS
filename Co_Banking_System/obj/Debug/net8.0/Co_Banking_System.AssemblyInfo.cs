@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Co_Banking_System")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02dec3e2c8df65e805a36a0db830c561fe0f0893")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9479760678b87d7860a7275bf8cde0a29db30eed")]
 [assembly: System.Reflection.AssemblyProductAttribute("Co_Banking_System")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Co_Banking_System")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
