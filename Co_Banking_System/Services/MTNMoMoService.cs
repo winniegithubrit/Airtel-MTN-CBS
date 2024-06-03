@@ -27,7 +27,6 @@ namespace Co_Banking_System.Services
       _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-  // the request payment functionality
     public async Task<string> RequestToPayAsync(string externalId, string payerId, decimal amount, string currency, string payerMessage, string payeeNote)
     {
       var requestUri = $"{_settings.BaseUrl}/collection/v1_0/requesttopay".Trim();
@@ -52,8 +51,8 @@ namespace Co_Banking_System.Services
 
       _httpClient.DefaultRequestHeaders.Add("X-Reference-Id", requestId);
       _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _settings.AccessToken);
-      // adding timeout functionality
 
+      // Adding timeout functionality
       _httpClient.Timeout = TimeSpan.FromSeconds(300);
 
       // Log the request for debugging
@@ -72,7 +71,7 @@ namespace Co_Banking_System.Services
       return await response.Content.ReadAsStringAsync();
     }
 
-  
+
 
     // creating a payment route 
     public async Task<string> CreatePaymentAsync(CreatePaymentModel model)

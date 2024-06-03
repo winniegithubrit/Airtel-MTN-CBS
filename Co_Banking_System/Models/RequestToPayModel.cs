@@ -6,9 +6,14 @@ namespace Co_Banking_System.Models
     public decimal? Amount { get; set; }
     public string? Currency { get; set; }
     public string? ExternalId { get; set; }
-    public string? Payer { get; set; }
+    public PayerModel? Payer { get; set; }
     public string? PayerMessage { get; set; }
     public string? PayeeNote { get; set; }
   }
 
+  public class PayerModel
+  {
+    public string? PartyIdType { get; set; }
+    public string? PartyId { get; set; }
+  }
 }

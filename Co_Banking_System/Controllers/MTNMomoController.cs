@@ -19,27 +19,28 @@ namespace Co_Banking_System.Controllers
 
 
 
-        [HttpPost("request-to-pay")]
-        public async Task<IActionResult> RequestToPay([FromBody] RequestToPayModel model)
-        {
-            if (model == null || string.IsNullOrEmpty(model.ExternalId) || string.IsNullOrEmpty(model.Payer) || string.IsNullOrEmpty(model.Currency) || string.IsNullOrEmpty(model.PayerMessage) || string.IsNullOrEmpty(model.PayeeNote))
-            {
-                return BadRequest("Invalid request parameters.");
-            }
+    [HttpPost("request-to-pay")]
+    public async Task<IActionResult> RequestToPay([FromBody] RequestToPayModel model)
+    {
+      if (model == null || string.IsNullOrEmpty(model.ExternalId) || model.Payer == null || string.IsNullOrEmpty(model.Payer.PartyId) || string.IsNullOrEmpty(model.Currency) || string.IsNullOrEmpty(model.PayerMessage) || string.IsNullOrEmpty(model.PayeeNote))
+      {
+        return BadRequest("Invalid request parameters.");
+      }
 
-            // Convert nullable decimal to non-nullable decimal
-            decimal amount = model.Amount ?? 0;
+      // Convert nullable decimal to non-nullable decimal
+      decimal amount = model.Amount ?? 0;
 
-            try
-            {
-                var result = await _mtnMomoService.RequestToPayAsync(model.ExternalId, model.Payer, amount, model.Currency, model.PayerMessage, model.PayeeNote);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while processing the payment request: {ex.Message}");
-            }
-        }
+      try
+      {
+        var result = await _mtnMomoService.RequestToPayAsync(model.ExternalId, model.Payer.PartyId, amount, model.Currency, model.PayerMessage, model.PayeeNote);
+        return Ok(result);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, $"An error occurred while processing the payment request: {ex.Message}");
+      }
+    }
+
 
 
     [HttpPost("create-payment")]
